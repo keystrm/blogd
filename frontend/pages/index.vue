@@ -1,9 +1,8 @@
 <template>
   <div class="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-200">
     <nav class="bg-white dark:bg-gray-800">
-      <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+      <div class="justify-between items-center">
           <FullPageMenuBar/>
-          <!-- <ButtonColorModeSwitcher/> -->
       </div>
     </nav>
     <header class="bg-white dark:bg-gray-800 text-gray-900 dark:text-white py-8">
