@@ -1,19 +1,11 @@
 <template>
     <div class="flex flex-row items-center justify-center">
-        <ButtonIconsNight
-            v-show="colorMode.preference === 'light'"
-            class="theme-icon text-typography_primary_light dark:text-typography_primary_dark"
-            width="28"
-            height="28"
-            @click="toggleTheme"
-        />
-        <ButtonIconsLight
-            v-show="colorMode.preference === 'dark'"
-            class="theme-icon text-typography_primary_light dark:text-typography_primary_dark"
-            width="28"
-            height="28"
-            @click="toggleTheme"
-        />
+        <ButtonIconsNight v-show="colorMode.preference === 'light'"
+            class="theme-icon text-typography_primary_light dark:text-typography_primary_dark" width="28" height="28"
+            @click="toggleTheme" />
+        <ButtonIconsLight v-show="colorMode.preference === 'dark'"
+            class="theme-icon text-typography_primary_light dark:text-typography_primary_dark" width="28" height="28"
+            @click="toggleTheme" />
     </div>
 </template>
 
@@ -35,7 +27,7 @@ const getThemes = (currentTheme) => {
         currentThemeName = themes.dark;
         nextTheme = themes.light;
     } else {
-        currentThemeName = themes.light; 
+        currentThemeName = themes.light;
         nextTheme = themes.dark;
     }
 
@@ -43,21 +35,20 @@ const getThemes = (currentTheme) => {
 }
 
 const toggleTheme = () => {
-    PrimeVue.changeTheme(getThemes(colorMode.preference).currentTheme,getThemes(colorMode.preference).nextTheme, 'theme-link', () => {});
+    PrimeVue.changeTheme(getThemes(colorMode.preference).currentTheme, getThemes(colorMode.preference).nextTheme, 'theme-link', () => { });
     colorMode.preference = colorMode.preference === 'dark' ? 'light' : 'dark';
 };
 
 
-onMounted(()=>{
-    nextTick(()=>{
-        console.log(colorMode)
-    if(colorMode.preference === 'system'){
-        colorMode.preference = colorMode.value
-    }
-    console.log(colorMode)
+onMounted(() => {
 
-    PrimeVue.changeTheme(getThemes(colorMode.preference).nextTheme,getThemes(colorMode.preference).currentTheme, 'theme-link', () => {});
-    })
+    setTimeout(() => {
+        if (colorMode.preference === 'system') {
+            colorMode.preference = colorMode.value
+        }
+        PrimeVue.changeTheme(getThemes(colorMode.preference).nextTheme, getThemes(colorMode.preference).currentTheme, 'theme-link', () => { })
+    }, 200)
+
 })
 </script>
 
@@ -65,6 +56,7 @@ onMounted(()=>{
 .theme-icon {
     @apply w-7 h-7 cursor-pointer transition-transform duration-100;
 }
+
 .theme-icon:hover {
     @apply scale-125;
 }
