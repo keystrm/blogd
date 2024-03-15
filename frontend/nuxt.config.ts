@@ -1,4 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import path from 'path';
 
 export default defineNuxtConfig({
   runtimeConfig: {
@@ -22,15 +23,11 @@ export default defineNuxtConfig({
     preference: "system",
     fallback: "dark",
   },
-  app: {
-    head: {
-      link: [
-        {
-          id: "theme-link",
-          rel: "stylesheet",
-          href: "http://localhost:3000/themes/aura-light-blue/theme.css",
-        },
-      ],
-    },
-  },
+  primevue: {
+      options: { unstyled: true },
+      importPT: { as: 'Lara', from: path.resolve(__dirname, './presets/lara/') },
+      components: {
+          exclude: ["Editor", "Chart"]
+      }
+  }
 });
