@@ -2,7 +2,7 @@
   <div class="dark:bg-surface-main-dark">
       <!-- Sticky Menu Bar -->
       <div ref="menuBarRef" class="sticky top-0 z-50 bg-white/70 dark:bg-surface-main-dark/70 backdrop-blur-sm">
-          <MenuBar class="dark:bg-surface-main-dark/70 bg-surface-50/50"/>
+          <MenuBar class="dark:bg-surface-main-dark/70 bg-surface-50/50 border-b"/>
       </div>
 
       <!-- Page Content -->
