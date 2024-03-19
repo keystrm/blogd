@@ -1,10 +1,10 @@
 <template>
     <div class="flex flex-row items-center justify-center">
         <ButtonIconsNight v-show="colorMode.preference === 'light'"
-            class="theme-icon text-typography_primary_light dark:text-typography_primary_dark" width="28" height="28"
+            class="theme-icon text-black dark:text-white" width="28" height="28"
             @click="toggleTheme" />
         <ButtonIconsLight v-show="colorMode.preference === 'dark'"
-            class="theme-icon text-typography_primary_light dark:text-typography_primary_dark" width="28" height="28"
+            class="theme-icon  text-black dark:text-white" width="28" height="28"
             @click="toggleTheme" />
     </div>
 </template>
