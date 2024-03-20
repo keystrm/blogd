@@ -1,49 +1,51 @@
 <template>
-  <div class="dark:bg-surface-main-dark">
-      <!-- Sticky Menu Bar -->
-      <div ref="menuBarRef" class="sticky top-0 z-50 bg-white/70 dark:bg-surface-main-dark/70 backdrop-blur-sm">
-          <MenuBar class="dark:bg-surface-main-dark/70 bg-surface-50/50 border-b"/>
-      </div>
+    <div class="dark:bg-surface-main-dark">
+        <!-- Sticky Menu Bar -->
+        <div ref="menuBarRef" class="sticky top-0 z-50 bg-white/70 dark:bg-surface-main-dark/70 backdrop-blur-sm">
+            <MenuBar class="dark:bg-surface-main-dark/70 bg-surface-50/50 border-b" />
+        </div>
 
-      <!-- Page Content -->
-      <div class="pt-5"> <!-- Adjust based on MainMenuBar height -->
-          <div class="container mx-auto px-4 space-y-8">
+        <!-- Page Content -->
+        <div class="pt-5"> <!-- Adjust based on MainMenuBar height -->
+            <div
+                class="container mx-auto px-4 sm:max-w-full md:max-w-3xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl space-y-8">
 
-              <!-- Trending Section -->
-              <div class="container mx-auto px-4 py-8 text-gray-900 dark:text-white">
-                  <h2 class="text-2xl font-bold mb-6">Trending Articles</h2>
-                  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      <HomeTrendingArticle v-for="(article, index) in trendingArticles" :key="index"
-                          :article="article" />
-                  </div>
-              </div>
+                <!-- Trending Section -->
+                <div class="container mx-auto px-4 py-8 text-gray-900 dark:text-white">
+                    <h2 class="text-2xl font-bold mb-6">Trending Articles</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <HomeTrendingArticle v-for="(article, index) in trendingArticles" :key="index"
+                            :article="article" />
+                    </div>
+                </div>
 
-              <!-- Adjusted Main Content and Suggested Tags -->
-              <div class="flex flex-col lg:flex-row gap-8">
-                  <!-- Suggested Tags, order-first in small screens -->
-                  <div ref="tagsSectionRef" class="lg:w-1/3 lg:sticky lg:top-20 order-first lg:order-last">
-                      <h2 class="text-lg font-semibold mb-4">Discover more of what matters to you</h2>
-                      <div class="grid grid-cols-2 gap-4 mb-4">
-                          <Chip label="Action" />
-                          <Chip label="Comedy" />
-                          <Chip label="Mystery" />
-                          <Chip label="Thriller" removable />
-                      </div>
-                      <button class="text-blue-600 dark:text-blue-400 hover:underline">See more topics</button>
-                  </div>
+                <!-- Adjusted Main Content and Suggested Tags -->
+                <div class="flex flex-col lg:flex-row gap-8">
+                    <!-- Suggested Tags, order-first in small screens -->
+                    <div ref="tagsSectionRef" class="lg:w-1/3 lg:sticky lg:top-20 order-first lg:order-last">
+                        <h2 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Discover more of what
+                            matters to you</h2>
+                        <div class="grid gap-4 mb-4">
+                            <div v-for="chip in chips" :key="chip"
+                                class="chip cursor-pointer text-sm font-medium py-2 px-4 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                                {{ chip }}
+                            </div>
+                        </div>
+                        <button class="text-blue-600 dark:text-blue-400 hover:underline">See more topics</button>
+                    </div>
 
-                  <!-- Article List Here -->
-                  <div class="flex-grow space-y-4">
-                      <HomeArticle v-for="(article, index) in articles" :key="index" :article="article" />
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+                    <!-- Article List Here -->
+                    <div class="flex-grow space-y-4">
+                        <HomeArticle v-for="(article, index) in articles" :key="index" :article="article" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script lang="ts" setup>
-
+const chips =ref(["Programming", "Data Science", "Technology", "Self Improvement", "Writing", "Relationships", "Machine Learning", "Productivity", "Politics"])
 const trendingArticles = ref<TrendingArticle[]>([
   {
       "title": "Exploring the Depths of Ocean Biodiversity",
@@ -274,41 +276,6 @@ const articles = ref<Article[]>(
       }
   ]
 )
-
-const menuBarRef: Ref<HTMLElement | null> = ref(null);
-const tagsSectionRef: Ref<HTMLElement | null> = ref(null);
-
-const handleScroll = () => {
-  if (!menuBarRef.value || !tagsSectionRef.value) {
-      return;
-  }
-
-  // Calculate the distance of the menu bar's bottom from the top of the viewport
-  const menuBarBottom: number = menuBarRef.value.getBoundingClientRect().bottom + window.scrollY;
-
-  // Get the scrolling container or window's scroll position
-  const scrollPosition: number = window.scrollY;
-
-  // Calculate the stopping point for the "Suggested Tags" div (you might adjust this based on your layout)
-  const stopPoint: number = menuBarBottom - 50; // 20px from the bottom of the menu bar, adjust as needed
-
-  // Check if the scroll position has reached or passed the stop point
-  if (scrollPosition >= stopPoint) {
-      const diff: number = scrollPosition - stopPoint;
-      tagsSectionRef.value.style.transform = `translateY(${-diff}px)`;
-  } else {
-      tagsSectionRef.value.style.transform = 'translateY(0px)';
-  }
-};
-
-onMounted(async () => {
-  await nextTick();
-  window.addEventListener('scroll', handleScroll);
-});
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll);
-});
 
 </script>
 

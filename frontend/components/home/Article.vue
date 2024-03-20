@@ -1,6 +1,6 @@
 <template>
     <div
-        class="flex bg-white dark:bg-gray-800 rounded overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
+        class="flex bg-white dark:bg-surface-main-dark rounded overflow-hidden cursor-pointer hover:bg-gray-100 dark:hover:bg-surface-main-dark-hover transition-colors duration-300">
         <div class="flex flex-col justify-between p-6 flex-grow">
             <div>
                 <div class="flex items-center mb-4">
