@@ -277,41 +277,6 @@ const articles = ref<Article[]>(
   ]
 )
 
-const menuBarRef: Ref<HTMLElement | null> = ref(null);
-const tagsSectionRef: Ref<HTMLElement | null> = ref(null);
-
-const handleScroll = () => {
-  if (!menuBarRef.value || !tagsSectionRef.value) {
-      return;
-  }
-
-  // Calculate the distance of the menu bar's bottom from the top of the viewport
-  const menuBarBottom: number = menuBarRef.value.getBoundingClientRect().bottom + window.scrollY;
-
-  // Get the scrolling container or window's scroll position
-  const scrollPosition: number = window.scrollY;
-
-  // Calculate the stopping point for the "Suggested Tags" div (you might adjust this based on your layout)
-  const stopPoint: number = menuBarBottom - 50; // 20px from the bottom of the menu bar, adjust as needed
-
-  // Check if the scroll position has reached or passed the stop point
-  if (scrollPosition >= stopPoint) {
-      const diff: number = scrollPosition - stopPoint;
-      tagsSectionRef.value.style.transform = `translateY(${-diff}px)`;
-  } else {
-      tagsSectionRef.value.style.transform = 'translateY(0px)';
-  }
-};
-
-onMounted(async () => {
-  await nextTick();
-  window.addEventListener('scroll', handleScroll);
-});
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll);
-});
-
 </script>
 
 <style scoped>
