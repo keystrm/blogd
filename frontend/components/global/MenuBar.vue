@@ -18,22 +18,24 @@
 
         <template #end>
             <div class="flex align-items-center gap-2">
-                <ButtonIcon class="md:hidden" icon="search"/>
+                <ButtonIcon class="md:hidden" icon="search" />
                 <ButtonColorModeSwitcher />
                 <Avatar v-if="isAuth" image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
                     shape="circle" />
-                <NuxtLink to="/login">
-                    <button
-                        class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
-                        Get started
-                    </button>
-                </NuxtLink>
+                <button @click="showSignModal"
+                    class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                    Get started
+                </button>
             </div>
         </template>
     </Menubar>
 </template>
 
-<script setup>
+<script lang="ts"  setup>
+const emit = defineEmits(['showSignModal'])
 
-const isAuth = ref < Boolean > (false)
+const isAuth = ref<Boolean>(false)
+const showSignModal = () => {
+    emit('showSignModal')
+}
 </script>

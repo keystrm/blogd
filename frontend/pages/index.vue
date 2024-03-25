@@ -2,7 +2,9 @@
     <div class="dark:bg-surface-main-dark">
         <!-- Sticky Menu Bar -->
         <div ref="menuBarRef" class="sticky top-0 z-50 bg-white/70 dark:bg-surface-main-dark/70 backdrop-blur-sm">
-            <MenuBar class="dark:bg-surface-main-dark/70 bg-surface-50/50 border-b" />
+            <MenuBar
+            @showSignModal="signModalModalVisibility = !signModalModalVisibility"
+            class="dark:bg-surface-main-dark/70 bg-surface-50/50 border-b" />
         </div>
 
         <!-- Page Content -->
@@ -42,9 +44,14 @@
             </div>
         </div>
     </div>
+    <ModalSignIn v-model="signModalModalVisibility"/>
 </template>
 
 <script lang="ts" setup>
+
+const signModalModalVisibility = ref(false);
+
+//temp variables
 const chips =ref(["Programming", "Data Science", "Technology", "Self Improvement", "Writing", "Relationships", "Machine Learning", "Productivity", "Politics"])
 const trendingArticles = ref<TrendingArticle[]>([
   {
