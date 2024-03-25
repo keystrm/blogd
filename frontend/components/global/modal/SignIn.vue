@@ -1,5 +1,5 @@
 <template>
-    <Dialog v-model:visible="visible" modal header=" " :draggable="false">
+    <Dialog v-model:visible="visible" modal header=" " :draggable="false" class="w-[90vw] md:w-[40vw]">
             <h2 class="text-2xl font-semibold mb-6 text-center text-gray-900 dark:text-white">Login</h2>
             <InputText placeholder="Username" class="w-full mb-4" />
             <InputText type="password" placeholder="Password" class="w-full mb-6" />
@@ -30,5 +30,4 @@
 </template>
 <script lang="ts" setup>
 const visible = defineModel({type:Boolean})
-console.log(visible)
 </script>
