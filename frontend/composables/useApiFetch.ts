@@ -1,20 +1,27 @@
 import type { UseFetchOptions } from "nuxt/app";
 
 export function useApiFetch<T>(path: string | (() => string), options: UseFetchOptions<T> = {}) {
-  let headers :any = {}
-  const token = useCookie('XSRF_TOKEN')
+  const config = useRuntimeConfig();
 
-  if(token.value){
-    headers['X-XSRF_TOKEN'] = token.value as string
+  const xsrfToken = useCookie("XSRF-TOKEN");
+  let headers = {
+    accept: "application/json",
+    ...options?.headers,
+  };
+  if (xsrfToken && xsrfToken.value !== null) {
+    headers["X-XSRF-TOKEN"] = xsrfToken;
   }
-
-  return useFetch('http://localhost'+path, {
-    credentials: 'include',
-    watch:false,
-    ...options,
-    headers:{
+  if (process.server) {
+    headers = {
       ...headers,
-      ...options.headers
-    }
+      ...useRequestHeaders(["cookie"]),
+      referer: config.public.baseURL,
+    };
+  }
+  return useFetch("http://localhost:8000" + path, {
+    baseURL: config.public.apiBaseUrl,
+    headers,
+    credentials: "include",
+    ...options,
   });
 }
