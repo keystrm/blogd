@@ -22,6 +22,7 @@ export function useApiFetch<T>(path: string | (() => string), options: UseFetchO
     baseURL: config.public.apiBaseUrl,
     headers,
     credentials: "include",
+    watch:false,
     ...options,
   });
 }
